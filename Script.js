@@ -50,3 +50,35 @@ document.addEventListener("keydown", (e) => {
     document.body.style.overflow = "";
   }
 });
+
+document.querySelectorAll(".accordion-header").forEach((header) => {
+  header.addEventListener("click", () => {
+    const isExpanded = header.getAttribute("aria-expanded") === "true";
+    const content = header.nextElementSibling;
+
+    // Toggle aria-expanded state
+    header.setAttribute("aria-expanded", !isExpanded);
+
+    // Toggle content visibility
+    if (!isExpanded) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } else {
+      content.style.maxHeight = "0";
+    }
+  });
+});
+
+document
+  .querySelectorAll(".contact-form input, .contact-form textarea")
+  .forEach((input) => {
+    input.addEventListener("focus", () => {
+      input.placeholder = "";
+    });
+    input.addEventListener("blur", () => {
+      if (!input.value) {
+        input.placeholder =
+          input.getAttribute("data-placeholder") ||
+          input.getAttribute("placeholder");
+      }
+    });
+  });
